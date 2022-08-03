@@ -14,23 +14,6 @@ const HomeScreen = () => {
 
     const [featuredCategories, setFeaturedCategories] = useState([]);
 
-    useEffect(() => {
-        sanityClient.fetch(`
-         *[_type == "featured"]{
-            ...,
-            restaurants[]->{
-                ...,
-                dishes[]->
-            }
-         }
-        `).then((data) => {
-            console.log('===', data)
-            setFeaturedCategories(data);
-        })
-    }, [])
-
-    console.log('first', featuredCategories)
-
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false
@@ -73,15 +56,12 @@ const HomeScreen = () => {
                 <Categories />
 
                 {/* Featured */}
-                {featuredCategories?.map(category => (
-                    <FeaturedRow
-                        key={category._id}
-                        id={category._id}
-                        title={category?.name}
-                        description={category?.short_description}
 
-                    />
-                ))}
+                <FeaturedRow
+                    title={'Featured Row'}
+                    description={'The best in town'}
+
+                />
 
 
                 {/* Tasty Discounts*/}
